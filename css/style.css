@@ -17,21 +17,26 @@
   --card-shadow: rgba(0, 0, 0, 0.4);
 }
 
+html, body {
+  height: 100%;
+  overflow: hidden;
+}
+
 body {
   font-family: 'Press Start 2P', cursive;
   background: linear-gradient(135deg, var(--felt-dark) 0%, var(--felt-green) 50%, var(--felt-dark) 100%);
-  min-height: 100vh;
   color: var(--cream);
-  overflow: hidden;
 }
 
 #app {
   width: 100vw;
   height: 100vh;
+  height: 100dvh; /* Dynamic viewport height for mobile */
   position: relative;
+  overflow: hidden;
 }
 
-/* Screens - proper stacking */
+/* Screens */
 .screen {
   display: none;
   width: 100%;
@@ -46,145 +51,17 @@ body {
 .screen.active {
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
   z-index: 10;
-}
-
-/* Lobby */
-#lobby {
-  gap: 20px;
-  padding: 20px;
-}
-
-#lobby h1 {
-  font-size: 2rem;
-  color: var(--gold);
-  text-shadow: 4px 4px 0 var(--gold-dark);
-  margin-bottom: 10px;
-}
-
-.subtitle {
-  font-size: 0.8rem;
-  color: var(--cream);
-  margin-bottom: 5px;
-}
-
-.wild-info {
-  font-size: 0.7rem;
-  color: var(--gold);
-  background: rgba(0, 0, 0, 0.3);
-  padding: 8px 16px;
-  border-radius: 4px;
-  margin-bottom: 20px;
-}
-
-.lobby-form {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 20px;
-  width: 100%;
-  max-width: 300px;
-}
-
-.lobby-form input {
-  width: 100%;
-  padding: 15px;
-  font-family: 'Press Start 2P', cursive;
-  font-size: 0.8rem;
-  background: rgba(0, 0, 0, 0.5);
-  border: 3px solid var(--gold);
-  border-radius: 8px;
-  color: var(--cream);
-  text-align: center;
-  outline: none;
-}
-
-.lobby-form input:focus {
-  border-color: #fff;
-  box-shadow: 0 0 10px var(--gold);
-}
-
-.lobby-form input::placeholder {
-  color: rgba(245, 245, 220, 0.5);
-}
-
-.btn {
-  font-family: 'Press Start 2P', cursive;
-  font-size: 0.7rem;
-  padding: 12px 24px;
-  border: none;
-  border-radius: 8px;
-  cursor: pointer;
-  transition: all 0.2s;
-  text-transform: uppercase;
-}
-
-.btn:hover {
-  transform: scale(1.05);
-}
-
-.btn:active {
-  transform: scale(0.95);
-}
-
-.btn:disabled {
-  opacity: 0.5;
-  cursor: not-allowed;
-  transform: none;
-}
-
-.btn-primary {
-  background: var(--gold);
-  color: #000;
-}
-
-.btn-large {
-  font-size: 1rem;
-  padding: 20px 50px;
-}
-
-.status-text {
-  font-size: 0.6rem;
-  color: var(--cream);
-  text-align: center;
-  min-height: 20px;
-}
-
-.status-text.waiting {
-  animation: blink 1s infinite;
-}
-
-@keyframes blink {
-  0%, 100% { opacity: 1; }
-  50% { opacity: 0.5; }
 }
 
 .hidden {
   display: none !important;
 }
 
-/* Countdown */
-#countdown {
-  background: rgba(0, 0, 0, 0.9);
-}
-
-.countdown-number {
-  font-size: 6rem;
-  color: var(--gold);
-  text-shadow: 0 0 20px var(--gold);
-  animation: pulse 1s infinite;
-}
-
-@keyframes pulse {
-  0%, 100% { transform: scale(1); }
-  50% { transform: scale(1.2); }
-}
-
 /* Game Screen */
 #game {
-  padding: 10px;
+  padding: 8px;
+  gap: 4px;
 }
 
 #game.active {
@@ -195,24 +72,25 @@ body {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 10px;
+  padding: 6px 10px;
   background: rgba(0, 0, 0, 0.3);
-  border-radius: 8px;
+  border-radius: 6px;
+  flex-shrink: 0;
 }
 
 .player-info {
   display: flex;
   flex-direction: column;
-  gap: 5px;
+  gap: 2px;
 }
 
 .player-name {
-  font-size: 0.6rem;
+  font-size: 0.5rem;
   color: var(--cream);
 }
 
 .player-chips {
-  font-size: 0.8rem;
+  font-size: 0.65rem;
   color: var(--gold);
 }
 
@@ -225,18 +103,18 @@ body {
   flex-direction: column;
   align-items: center;
   background: rgba(0, 0, 0, 0.5);
-  padding: 10px 20px;
-  border-radius: 8px;
+  padding: 6px 14px;
+  border-radius: 6px;
   border: 2px solid var(--gold);
 }
 
 .pot-label {
-  font-size: 0.5rem;
+  font-size: 0.4rem;
   color: var(--cream);
 }
 
 .pot-amount {
-  font-size: 1rem;
+  font-size: 0.8rem;
   color: var(--gold);
 }
 
@@ -246,9 +124,9 @@ body {
 
 .timer-display {
   background: #28a745;
-  padding: 8px 15px;
+  padding: 6px 10px;
   border-radius: 4px;
-  font-size: 0.8rem;
+  font-size: 0.65rem;
 }
 
 /* Card Areas */
@@ -259,29 +137,31 @@ body {
   align-items: center;
   justify-content: center;
   position: relative;
+  min-height: 0;
 }
 
 .opponent-hand, .player-hand {
   display: flex;
-  gap: 10px;
+  gap: 6px;
   justify-content: center;
+  flex-wrap: nowrap;
 }
 
 .opponent-bet, .player-bet {
   position: absolute;
-  font-size: 0.7rem;
+  font-size: 0.55rem;
   color: var(--gold);
-  padding: 5px 10px;
+  padding: 3px 8px;
   background: rgba(0, 0, 0, 0.5);
   border-radius: 4px;
 }
 
 .opponent-bet {
-  bottom: 10px;
+  bottom: 5px;
 }
 
 .player-bet {
-  top: 10px;
+  top: 5px;
 }
 
 .opponent-bet:empty, .player-bet:empty {
@@ -293,53 +173,51 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 20px;
+  padding: 8px;
   position: relative;
+  flex-shrink: 0;
 }
 
 .game-message {
-  font-size: 0.7rem;
+  font-size: 0.55rem;
   color: var(--gold);
   text-align: center;
-  padding: 10px;
+  padding: 8px 12px;
   background: rgba(0, 0, 0, 0.5);
   border-radius: 4px;
-  min-height: 40px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  max-width: 90%;
 }
 
 .dealer-button {
   position: absolute;
-  right: 50px;
-  width: 30px;
-  height: 30px;
+  right: 20px;
+  width: 24px;
+  height: 24px;
   background: var(--gold);
   color: #000;
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 0.6rem;
+  font-size: 0.5rem;
   font-weight: bold;
 }
 
 .dealer-button.opponent {
-  top: -50px;
+  top: -30px;
 }
 
 .dealer-button.player {
-  bottom: -50px;
+  bottom: -30px;
 }
 
 /* Cards */
 .card {
-  width: 70px;
-  height: 100px;
+  width: 48px;
+  height: 68px;
   background: var(--card-white);
-  border-radius: 8px;
-  box-shadow: 2px 2px 8px var(--card-shadow);
+  border-radius: 6px;
+  box-shadow: 1px 1px 4px var(--card-shadow);
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -348,26 +226,27 @@ body {
   cursor: pointer;
   transition: transform 0.2s, box-shadow 0.2s;
   user-select: none;
+  flex-shrink: 0;
 }
 
 .card.face-down {
   background: linear-gradient(135deg, #1a1a8a 25%, #2a2a9a 25%, #2a2a9a 50%, #1a1a8a 50%, #1a1a8a 75%, #2a2a9a 75%);
-  background-size: 10px 10px;
-  border: 3px solid var(--gold);
+  background-size: 8px 8px;
+  border: 2px solid var(--gold);
 }
 
 .card.selected {
-  transform: translateY(-20px);
-  box-shadow: 0 8px 16px var(--card-shadow), 0 0 10px var(--gold);
+  transform: translateY(-15px);
+  box-shadow: 0 6px 12px var(--card-shadow), 0 0 8px var(--gold);
 }
 
 .card .rank {
-  font-size: 1.2rem;
+  font-size: 0.9rem;
   font-weight: bold;
 }
 
 .card .suit {
-  font-size: 1.5rem;
+  font-size: 1.1rem;
 }
 
 .card.hearts, .card.diamonds {
@@ -391,54 +270,87 @@ body {
 }
 
 .card.joker .rank {
-  font-size: 0.6rem;
+  font-size: 0.45rem;
 }
 
 .card .corner {
   position: absolute;
-  font-size: 0.5rem;
+  font-size: 0.4rem;
   line-height: 1;
 }
 
 .card .corner.top-left {
-  top: 5px;
-  left: 5px;
+  top: 3px;
+  left: 3px;
 }
 
 .card .corner.bottom-right {
-  bottom: 5px;
-  right: 5px;
+  bottom: 3px;
+  right: 3px;
   transform: rotate(180deg);
 }
 
 /* Game Footer */
 .game-footer {
-  padding: 10px;
+  padding: 6px 10px;
   background: rgba(0, 0, 0, 0.3);
-  border-radius: 8px;
+  border-radius: 6px;
+  flex-shrink: 0;
 }
 
 /* Action Panel */
 .action-panel {
-  padding: 15px;
+  padding: 10px;
   background: rgba(0, 0, 0, 0.5);
   border-radius: 8px;
-  margin-top: 10px;
+  flex-shrink: 0;
 }
 
 .bet-actions {
   display: flex;
-  gap: 10px;
+  gap: 8px;
   align-items: center;
   justify-content: center;
   flex-wrap: wrap;
 }
 
+/* Buttons */
+.btn {
+  font-family: 'Press Start 2P', cursive;
+  font-size: 0.55rem;
+  padding: 10px 16px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.2s;
+  text-transform: uppercase;
+  touch-action: manipulation;
+}
+
+.btn:hover {
+  transform: scale(1.05);
+}
+
+.btn:active {
+  transform: scale(0.95);
+}
+
+.btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.btn-primary {
+  background: var(--gold);
+  color: #000;
+}
+
 .btn-deal {
   background: var(--gold);
   color: #000;
-  font-size: 1rem;
-  padding: 15px 40px;
+  font-size: 0.8rem;
+  padding: 14px 32px;
 }
 
 .btn-fold {
@@ -459,18 +371,18 @@ body {
 .raise-controls {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 6px;
 }
 
 .raise-controls input[type="range"] {
-  width: 100px;
+  width: 70px;
   cursor: pointer;
 }
 
 #raiseAmount {
-  min-width: 50px;
+  min-width: 40px;
   text-align: center;
-  font-size: 0.7rem;
+  font-size: 0.55rem;
   color: var(--gold);
 }
 
@@ -483,8 +395,8 @@ body {
 }
 
 .draw-instruction {
-  font-size: 0.6rem;
-  margin-bottom: 15px;
+  font-size: 0.5rem;
+  margin-bottom: 10px;
   color: var(--cream);
 }
 
@@ -504,22 +416,23 @@ body {
 
 .overlay-content {
   background: linear-gradient(135deg, #1a3a1a 0%, #0d5c1d 100%);
-  padding: 40px;
-  border-radius: 16px;
+  padding: 24px;
+  border-radius: 12px;
   border: 3px solid var(--gold);
   text-align: center;
-  max-width: 400px;
+  max-width: 90%;
+  width: 320px;
 }
 
 .overlay-content h2 {
-  font-size: 1.5rem;
+  font-size: 1.1rem;
   color: var(--gold);
-  margin-bottom: 20px;
+  margin-bottom: 16px;
 }
 
 .overlay-content p {
-  font-size: 0.7rem;
-  margin: 10px 0;
+  font-size: 0.55rem;
+  margin: 8px 0;
   line-height: 1.8;
 }
 
@@ -528,41 +441,134 @@ body {
 }
 
 .overlay-content .btn {
-  margin-top: 20px;
+  margin-top: 16px;
 }
 
-/* Responsive */
-@media (max-width: 600px) {
-  #lobby h1 {
-    font-size: 1.2rem;
-  }
-
+/* Responsive - Larger phones */
+@media (min-height: 700px) {
   .card {
-    width: 50px;
-    height: 75px;
+    width: 56px;
+    height: 80px;
   }
 
   .card .rank {
-    font-size: 0.9rem;
-  }
-
-  .card .suit {
     font-size: 1rem;
   }
 
-  .bet-actions {
-    flex-direction: column;
+  .card .suit {
+    font-size: 1.3rem;
   }
 
-  .raise-controls {
-    flex-direction: column;
+  .game-message {
+    font-size: 0.6rem;
+  }
+
+  .btn {
+    font-size: 0.6rem;
+    padding: 12px 18px;
+  }
+
+  .btn-deal {
+    font-size: 0.9rem;
+    padding: 16px 36px;
+  }
+}
+
+/* Responsive - Tablets and larger */
+@media (min-height: 900px) {
+  #game {
+    padding: 12px;
+    gap: 8px;
+  }
+
+  .card {
+    width: 70px;
+    height: 100px;
+  }
+
+  .card .rank {
+    font-size: 1.2rem;
+  }
+
+  .card .suit {
+    font-size: 1.5rem;
+  }
+
+  .opponent-hand, .player-hand {
+    gap: 10px;
+  }
+
+  .player-name {
+    font-size: 0.6rem;
+  }
+
+  .player-chips {
+    font-size: 0.8rem;
+  }
+
+  .game-message {
+    font-size: 0.7rem;
+    padding: 10px 16px;
+  }
+
+  .btn {
+    font-size: 0.7rem;
+    padding: 12px 24px;
+  }
+
+  .btn-deal {
+    font-size: 1rem;
+    padding: 18px 44px;
+  }
+}
+
+/* Landscape orientation on mobile */
+@media (max-height: 500px) {
+  #game {
+    padding: 4px;
+    gap: 2px;
+  }
+
+  .game-header, .game-footer {
+    padding: 4px 8px;
+  }
+
+  .card {
+    width: 40px;
+    height: 56px;
+  }
+
+  .card .rank {
+    font-size: 0.75rem;
+  }
+
+  .card .suit {
+    font-size: 0.9rem;
+  }
+
+  .table-center {
+    padding: 4px;
+  }
+
+  .action-panel {
+    padding: 6px;
+  }
+
+  .btn {
+    font-size: 0.5rem;
+    padding: 8px 12px;
+  }
+
+  .btn-deal {
+    font-size: 0.7rem;
+    padding: 10px 24px;
   }
 }
 
 /* Animations */
 @keyframes dealCard {
   from {
-    transform: translateY(-200px) rotate(180deg);
+    transform: translateY(-100px) rotate(180deg);
     opacity: 0;
   }
   to {
@@ -573,19 +579,4 @@ body {
 
 .card.dealing {
   animation: dealCard 0.3s ease-out forwards;
-}
-
-@keyframes chipMove {
-  from {
-    transform: translateY(50px);
-    opacity: 0;
-  }
-  to {
-    transform: translateY(0);
-    opacity: 1;
-  }
-}
-
-.chip-animation {
-  animation: chipMove 0.3s ease-out;
 }
