@@ -1,4 +1,4 @@
-/* Wild Draw Poker - Mobile-First Responsive */
+/* Wild Draw Poker - Neon Retro Theme */
 
 * {
   margin: 0;
@@ -7,12 +7,14 @@
 }
 
 :root {
-  --felt-green: #0d5c1d;
-  --felt-dark: #094515;
-  --gold: #ffd700;
-  --gold-dark: #b8960a;
-  --cream: #f5f5dc;
-  --red: #dc3545;
+  --neon-pink: #ff2d95;
+  --neon-blue: #00d4ff;
+  --neon-purple: #b026ff;
+  --neon-orange: #ff6b35;
+  --dark-bg: #0a0a1a;
+  --dark-purple: #1a0a2e;
+  --cream: #f0e6ff;
+  --red: #ff3366;
 }
 
 html {
@@ -22,7 +24,7 @@ html {
 
 body {
   font-family: 'Press Start 2P', cursive;
-  background: linear-gradient(135deg, var(--felt-dark) 0%, var(--felt-green) 50%, var(--felt-dark) 100%);
+  background: linear-gradient(135deg, var(--dark-bg) 0%, var(--dark-purple) 50%, #0d0d2b 100%);
   color: var(--cream);
   height: 100%;
   height: -webkit-fill-available;
@@ -55,7 +57,7 @@ body {
   display: none !important;
 }
 
-/* Game Layout - Uses percentages of viewport */
+/* Game Layout */
 #game {
   padding: 1.5vh 2vw;
   height: 100%;
@@ -63,7 +65,7 @@ body {
   flex-direction: column;
 }
 
-/* Header - 8% of screen */
+/* Header */
 .game-header {
   height: 8%;
   min-height: 35px;
@@ -71,8 +73,10 @@ body {
   justify-content: space-between;
   align-items: center;
   padding: 0 2vw;
-  background: rgba(0, 0, 0, 0.3);
+  background: rgba(176, 38, 255, 0.2);
+  border: 1px solid var(--neon-purple);
   border-radius: 4px;
+  box-shadow: 0 0 10px rgba(176, 38, 255, 0.3);
 }
 
 .player-info {
@@ -82,12 +86,14 @@ body {
 
 .player-name {
   font-size: clamp(6px, 1.5vw, 10px);
-  color: var(--cream);
+  color: var(--neon-blue);
+  text-shadow: 0 0 8px var(--neon-blue);
 }
 
 .player-chips {
   font-size: clamp(8px, 2vw, 14px);
-  color: var(--gold);
+  color: var(--neon-pink);
+  text-shadow: 0 0 8px var(--neon-pink);
 }
 
 .player-chips::before {
@@ -98,10 +104,11 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
-  background: rgba(0, 0, 0, 0.5);
+  background: rgba(0, 212, 255, 0.1);
   padding: 1vh 3vw;
   border-radius: 4px;
-  border: 2px solid var(--gold);
+  border: 2px solid var(--neon-blue);
+  box-shadow: 0 0 15px rgba(0, 212, 255, 0.4);
 }
 
 .pot-label {
@@ -111,7 +118,8 @@ body {
 
 .pot-amount {
   font-size: clamp(10px, 2.5vw, 18px);
-  color: var(--gold);
+  color: var(--neon-orange);
+  text-shadow: 0 0 10px var(--neon-orange);
 }
 
 .pot-amount::before {
@@ -119,13 +127,14 @@ body {
 }
 
 .timer-display {
-  background: #28a745;
+  background: linear-gradient(135deg, var(--neon-purple), var(--neon-pink));
   padding: 1vh 2vw;
   border-radius: 4px;
   font-size: clamp(8px, 2vw, 14px);
+  box-shadow: 0 0 12px var(--neon-pink);
 }
 
-/* Opponent Area - 22% of screen */
+/* Card Areas */
 .opponent-area {
   height: 22%;
   display: flex;
@@ -135,7 +144,6 @@ body {
   position: relative;
 }
 
-/* Player Area - 22% of screen */
 .player-area {
   height: 22%;
   display: flex;
@@ -154,9 +162,10 @@ body {
 .opponent-bet, .player-bet {
   position: absolute;
   font-size: clamp(6px, 1.5vw, 10px);
-  color: var(--gold);
+  color: var(--neon-orange);
+  text-shadow: 0 0 6px var(--neon-orange);
   padding: 2px 6px;
-  background: rgba(0, 0, 0, 0.6);
+  background: rgba(255, 107, 53, 0.2);
   border-radius: 3px;
 }
 
@@ -164,7 +173,7 @@ body {
 .player-bet { top: 0; }
 .opponent-bet:empty, .player-bet:empty { display: none; }
 
-/* Table Center - 10% of screen */
+/* Table Center */
 .table-center {
   height: 10%;
   display: flex;
@@ -175,10 +184,12 @@ body {
 
 .game-message {
   font-size: clamp(6px, 1.8vw, 12px);
-  color: var(--gold);
+  color: var(--neon-blue);
+  text-shadow: 0 0 8px var(--neon-blue);
   text-align: center;
   padding: 1vh 3vw;
-  background: rgba(0, 0, 0, 0.5);
+  background: rgba(0, 212, 255, 0.1);
+  border: 1px solid var(--neon-blue);
   border-radius: 4px;
   max-width: 85%;
 }
@@ -188,7 +199,7 @@ body {
   right: 5vw;
   width: clamp(18px, 4vw, 28px);
   height: clamp(18px, 4vw, 28px);
-  background: var(--gold);
+  background: linear-gradient(135deg, var(--neon-orange), var(--neon-pink));
   color: #000;
   border-radius: 50%;
   display: flex;
@@ -196,31 +207,36 @@ body {
   justify-content: center;
   font-size: clamp(6px, 1.5vw, 10px);
   font-weight: bold;
+  box-shadow: 0 0 10px var(--neon-orange);
 }
 
 .dealer-button.opponent { top: -2vh; }
 .dealer-button.player { bottom: -2vh; }
 
-/* Footer - 8% of screen */
+/* Footer */
 .game-footer {
   height: 8%;
   min-height: 35px;
   display: flex;
   align-items: center;
   padding: 0 2vw;
-  background: rgba(0, 0, 0, 0.3);
+  background: rgba(176, 38, 255, 0.2);
+  border: 1px solid var(--neon-purple);
   border-radius: 4px;
+  box-shadow: 0 0 10px rgba(176, 38, 255, 0.3);
 }
 
-/* Action Panel - 28% of screen */
+/* Action Panel */
 .action-panel {
   height: 28%;
   display: flex;
   align-items: center;
   justify-content: center;
   padding: 1vh 2vw;
-  background: rgba(0, 0, 0, 0.4);
+  background: rgba(10, 10, 26, 0.8);
+  border: 1px solid var(--neon-purple);
   border-radius: 6px;
+  box-shadow: inset 0 0 20px rgba(176, 38, 255, 0.2);
 }
 
 .bet-actions {
@@ -238,22 +254,24 @@ body {
 .draw-instruction {
   font-size: clamp(6px, 1.5vw, 10px);
   margin-bottom: 1.5vh;
-  color: var(--cream);
+  color: var(--neon-blue);
+  text-shadow: 0 0 6px var(--neon-blue);
 }
 
-/* Cards - Scale with viewport */
+/* Cards */
 .card {
   width: clamp(36px, 12vw, 70px);
   height: clamp(50px, 17vw, 100px);
-  background: #fff;
+  background: linear-gradient(145deg, #1a1a2e, #16162a);
+  border: 2px solid var(--neon-blue);
   border-radius: clamp(4px, 1vw, 8px);
-  box-shadow: 1px 1px 3px rgba(0,0,0,0.4);
+  box-shadow: 0 0 8px rgba(0, 212, 255, 0.4);
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  transition: transform 0.15s;
+  transition: transform 0.15s, box-shadow 0.15s;
   user-select: none;
   position: relative;
 }
@@ -261,17 +279,19 @@ body {
 .card.face-down {
   background: repeating-linear-gradient(
     45deg,
-    #1a1a8a,
-    #1a1a8a 4px,
-    #2a2a9a 4px,
-    #2a2a9a 8px
+    var(--dark-purple),
+    var(--dark-purple) 4px,
+    #2a1a4e 4px,
+    #2a1a4e 8px
   );
-  border: 2px solid var(--gold);
+  border: 2px solid var(--neon-purple);
+  box-shadow: 0 0 10px rgba(176, 38, 255, 0.5);
 }
 
 .card.selected {
   transform: translateY(-12px);
-  box-shadow: 0 4px 8px rgba(0,0,0,0.5), 0 0 6px var(--gold);
+  box-shadow: 0 0 20px var(--neon-pink), 0 4px 8px rgba(0,0,0,0.5);
+  border-color: var(--neon-pink);
 }
 
 .card .rank {
@@ -283,19 +303,35 @@ body {
   font-size: clamp(12px, 4vw, 24px);
 }
 
-.card.hearts, .card.diamonds { color: var(--red); }
-.card.clubs, .card.spades { color: #000; }
+.card.hearts, .card.diamonds {
+  color: var(--neon-pink);
+  text-shadow: 0 0 6px var(--neon-pink);
+}
+
+.card.clubs, .card.spades {
+  color: var(--neon-blue);
+  text-shadow: 0 0 6px var(--neon-blue);
+}
 
 .card.wild {
-  background: linear-gradient(135deg, #ffd700, #ffec8b, #ffd700);
+  background: linear-gradient(135deg, var(--neon-orange), var(--neon-pink), var(--neon-purple));
+  border-color: var(--neon-orange);
+  box-shadow: 0 0 15px rgba(255, 107, 53, 0.6);
 }
 
 .card.wild .rank, .card.wild .suit {
-  color: #8b4513;
+  color: #fff;
+  text-shadow: 0 0 8px #fff;
 }
 
 .card.joker {
-  background: linear-gradient(135deg, #ff6b6b, #ffd700, #6bff6b);
+  background: linear-gradient(135deg, var(--neon-pink), var(--neon-purple), var(--neon-blue));
+  animation: jokerGlow 2s ease-in-out infinite;
+}
+
+@keyframes jokerGlow {
+  0%, 100% { box-shadow: 0 0 10px var(--neon-pink); }
+  50% { box-shadow: 0 0 20px var(--neon-purple); }
 }
 
 .card.joker .rank {
@@ -319,7 +355,7 @@ body {
   border: none;
   border-radius: 6px;
   cursor: pointer;
-  transition: transform 0.1s;
+  transition: transform 0.1s, box-shadow 0.1s;
   text-transform: uppercase;
   touch-action: manipulation;
   -webkit-tap-highlight-color: transparent;
@@ -334,8 +370,10 @@ body {
 }
 
 .btn-primary, .btn-deal {
-  background: var(--gold);
-  color: #000;
+  background: linear-gradient(135deg, var(--neon-pink), var(--neon-purple));
+  color: #fff;
+  border: 2px solid var(--neon-pink);
+  box-shadow: 0 0 15px rgba(255, 45, 149, 0.5);
 }
 
 .btn-deal {
@@ -344,18 +382,23 @@ body {
 }
 
 .btn-fold {
-  background: #666;
+  background: linear-gradient(135deg, #333, #555);
   color: var(--cream);
+  border: 2px solid #666;
 }
 
 .btn-call {
-  background: #28a745;
-  color: var(--cream);
+  background: linear-gradient(135deg, var(--neon-blue), #0099cc);
+  color: #000;
+  border: 2px solid var(--neon-blue);
+  box-shadow: 0 0 12px rgba(0, 212, 255, 0.5);
 }
 
 .btn-raise {
-  background: var(--gold);
+  background: linear-gradient(135deg, var(--neon-orange), #ff8c42);
   color: #000;
+  border: 2px solid var(--neon-orange);
+  box-shadow: 0 0 12px rgba(255, 107, 53, 0.5);
 }
 
 .raise-controls {
@@ -367,11 +410,13 @@ body {
 .raise-controls input[type="range"] {
   width: clamp(50px, 15vw, 100px);
   cursor: pointer;
+  accent-color: var(--neon-pink);
 }
 
 #raiseAmount {
   font-size: clamp(7px, 1.8vw, 11px);
-  color: var(--gold);
+  color: var(--neon-orange);
+  text-shadow: 0 0 6px var(--neon-orange);
   min-width: 35px;
   text-align: center;
 }
@@ -387,7 +432,7 @@ body {
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(0, 0, 0, 0.85);
+  background: rgba(10, 10, 26, 0.9);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -395,10 +440,11 @@ body {
 }
 
 .overlay-content {
-  background: linear-gradient(135deg, #1a3a1a, #0d5c1d);
+  background: linear-gradient(135deg, var(--dark-purple), var(--dark-bg));
   padding: clamp(16px, 4vh, 32px) clamp(20px, 5vw, 40px);
   border-radius: 10px;
-  border: 3px solid var(--gold);
+  border: 2px solid var(--neon-purple);
+  box-shadow: 0 0 30px rgba(176, 38, 255, 0.5);
   text-align: center;
   max-width: 90%;
   width: 300px;
@@ -406,7 +452,8 @@ body {
 
 .overlay-content h2 {
   font-size: clamp(12px, 4vw, 22px);
-  color: var(--gold);
+  color: var(--neon-pink);
+  text-shadow: 0 0 15px var(--neon-pink);
   margin-bottom: 2vh;
 }
 
@@ -417,7 +464,8 @@ body {
 }
 
 .overlay-content strong {
-  color: var(--gold);
+  color: var(--neon-blue);
+  text-shadow: 0 0 8px var(--neon-blue);
 }
 
 .overlay-content .btn {
