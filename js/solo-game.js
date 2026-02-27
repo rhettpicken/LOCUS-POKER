@@ -142,6 +142,7 @@ const ui = {
   gameMessage: document.getElementById('gameMessage'),
   dealerButton: document.getElementById('dealerButton'),
   timerValue: document.getElementById('timerValue'),
+  gameTitle: document.getElementById('gameTitle'),
   dealBtn: document.getElementById('dealBtn'),
   foldBtn: document.getElementById('foldBtn'),
   callBtn: document.getElementById('callBtn'),
@@ -176,6 +177,7 @@ function showMessage(msg) {
 }
 
 function showBetButtons(show) {
+  ui.gameTitle.classList.toggle('hidden', show);
   ui.dealBtn.classList.toggle('hidden', show);
   ui.foldBtn.classList.toggle('hidden', !show);
   ui.callBtn.classList.toggle('hidden', !show);
@@ -310,6 +312,7 @@ function playerFold() {
   game.computerChips += game.pot;
   showMessage('You folded. Computer wins!');
   showBetButtons(false);
+  ui.gameTitle.classList.remove('hidden');
   ui.dealBtn.classList.remove('hidden');
   game.phase = 'idle';
   updateUI();
@@ -372,7 +375,8 @@ function computerBet() {
     game.playerChips += game.pot;
     showMessage('Computer folds. You win!');
     showBetButtons(false);
-    ui.dealBtn.classList.remove('hidden');
+    ui.gameTitle.classList.remove('hidden');
+  ui.dealBtn.classList.remove('hidden');
     game.phase = 'idle';
     updateUI();
     checkGameOver();
@@ -546,7 +550,8 @@ function continueGame() {
   if (!checkGameOver()) {
     showMessage('Click DEAL for next hand');
     showBetButtons(false);
-    ui.dealBtn.classList.remove('hidden');
+    ui.gameTitle.classList.remove('hidden');
+  ui.dealBtn.classList.remove('hidden');
   }
 }
 
@@ -575,6 +580,7 @@ function restartGame() {
   updateUI();
   showMessage('Click DEAL to start!');
   showBetButtons(false);
+  ui.gameTitle.classList.remove('hidden');
   ui.dealBtn.classList.remove('hidden');
   ui.playerHand.innerHTML = '';
   ui.opponentHand.innerHTML = '';
