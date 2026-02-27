@@ -262,10 +262,10 @@ body {
 .card {
   width: clamp(36px, 12vw, 70px);
   height: clamp(50px, 17vw, 100px);
-  background: linear-gradient(145deg, #1a1a2e, #16162a);
-  border: 2px solid var(--neon-blue);
+  background: #fff;
+  border: 2px solid #ccc;
   border-radius: clamp(4px, 1vw, 8px);
-  box-shadow: 0 0 8px rgba(0, 212, 255, 0.4);
+  box-shadow: 2px 2px 6px rgba(0,0,0,0.3);
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -304,38 +304,32 @@ body {
 }
 
 .card.hearts, .card.diamonds {
-  color: var(--neon-pink);
-  text-shadow: 0 0 6px var(--neon-pink);
+  color: #d32f2f;
 }
 
 .card.clubs, .card.spades {
-  color: var(--neon-blue);
-  text-shadow: 0 0 6px var(--neon-blue);
+  color: #222;
 }
 
 .card.wild {
-  background: linear-gradient(135deg, var(--neon-orange), var(--neon-pink), var(--neon-purple));
-  border-color: var(--neon-orange);
-  box-shadow: 0 0 15px rgba(255, 107, 53, 0.6);
+  background: linear-gradient(135deg, #ffd700 0%, #ffec8b 50%, #ffd700 100%);
+  border-color: #ffa500;
+  box-shadow: 0 0 12px rgba(255, 165, 0, 0.6);
 }
 
 .card.wild .rank, .card.wild .suit {
-  color: #fff;
-  text-shadow: 0 0 8px #fff;
+  color: #8b4513;
 }
 
 .card.joker {
-  background: linear-gradient(135deg, var(--neon-pink), var(--neon-purple), var(--neon-blue));
-  animation: jokerGlow 2s ease-in-out infinite;
-}
-
-@keyframes jokerGlow {
-  0%, 100% { box-shadow: 0 0 10px var(--neon-pink); }
-  50% { box-shadow: 0 0 20px var(--neon-purple); }
+  background: linear-gradient(135deg, #ff6b6b, #ffd700, #6bff6b);
+  border-color: #ffa500;
+  box-shadow: 0 0 12px rgba(255, 165, 0, 0.6);
 }
 
 .card.joker .rank {
   font-size: clamp(5px, 1.5vw, 9px);
+  color: #333;
 }
 
 .card .corner {
