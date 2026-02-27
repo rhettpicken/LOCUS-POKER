@@ -1,4 +1,4 @@
-/* Wild Draw Poker - Retro Aesthetic */
+/* Wild Draw Poker - Mobile-First Responsive */
 
 * {
   margin: 0;
@@ -13,30 +13,30 @@
   --gold-dark: #b8960a;
   --cream: #f5f5dc;
   --red: #dc3545;
-  --card-white: #fff;
-  --card-shadow: rgba(0, 0, 0, 0.4);
 }
 
-html, body {
+html {
   height: 100%;
-  overflow: hidden;
+  height: -webkit-fill-available;
 }
 
 body {
   font-family: 'Press Start 2P', cursive;
   background: linear-gradient(135deg, var(--felt-dark) 0%, var(--felt-green) 50%, var(--felt-dark) 100%);
   color: var(--cream);
+  height: 100%;
+  height: -webkit-fill-available;
+  overflow: hidden;
+  position: fixed;
+  width: 100%;
 }
 
 #app {
-  width: 100vw;
-  height: 100vh;
-  height: 100dvh; /* Dynamic viewport height for mobile */
+  width: 100%;
+  height: 100%;
   position: relative;
-  overflow: hidden;
 }
 
-/* Screens */
 .screen {
   display: none;
   width: 100%;
@@ -44,53 +44,49 @@ body {
   position: absolute;
   top: 0;
   left: 0;
-  z-index: 1;
-  background: linear-gradient(135deg, var(--felt-dark) 0%, var(--felt-green) 50%, var(--felt-dark) 100%);
 }
 
 .screen.active {
   display: flex;
   flex-direction: column;
-  z-index: 10;
 }
 
 .hidden {
   display: none !important;
 }
 
-/* Game Screen */
+/* Game Layout - Uses percentages of viewport */
 #game {
-  padding: 8px;
-  gap: 4px;
-}
-
-#game.active {
+  padding: 1.5vh 2vw;
+  height: 100%;
   display: flex;
+  flex-direction: column;
 }
 
+/* Header - 8% of screen */
 .game-header {
+  height: 8%;
+  min-height: 35px;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 6px 10px;
+  padding: 0 2vw;
   background: rgba(0, 0, 0, 0.3);
-  border-radius: 6px;
-  flex-shrink: 0;
+  border-radius: 4px;
 }
 
 .player-info {
   display: flex;
   flex-direction: column;
-  gap: 2px;
 }
 
 .player-name {
-  font-size: 0.5rem;
+  font-size: clamp(6px, 1.5vw, 10px);
   color: var(--cream);
 }
 
 .player-chips {
-  font-size: 0.65rem;
+  font-size: clamp(8px, 2vw, 14px);
   color: var(--gold);
 }
 
@@ -103,18 +99,18 @@ body {
   flex-direction: column;
   align-items: center;
   background: rgba(0, 0, 0, 0.5);
-  padding: 6px 14px;
-  border-radius: 6px;
+  padding: 1vh 3vw;
+  border-radius: 4px;
   border: 2px solid var(--gold);
 }
 
 .pot-label {
-  font-size: 0.4rem;
+  font-size: clamp(5px, 1.2vw, 8px);
   color: var(--cream);
 }
 
 .pot-amount {
-  font-size: 0.8rem;
+  font-size: clamp(10px, 2.5vw, 18px);
   color: var(--gold);
 }
 
@@ -124,141 +120,174 @@ body {
 
 .timer-display {
   background: #28a745;
-  padding: 6px 10px;
+  padding: 1vh 2vw;
   border-radius: 4px;
-  font-size: 0.65rem;
+  font-size: clamp(8px, 2vw, 14px);
 }
 
-/* Card Areas */
-.opponent-area, .player-area {
-  flex: 1;
+/* Opponent Area - 22% of screen */
+.opponent-area {
+  height: 22%;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   position: relative;
-  min-height: 0;
+}
+
+/* Player Area - 22% of screen */
+.player-area {
+  height: 22%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: relative;
 }
 
 .opponent-hand, .player-hand {
   display: flex;
-  gap: 6px;
+  gap: 1.5vw;
   justify-content: center;
-  flex-wrap: nowrap;
 }
 
 .opponent-bet, .player-bet {
   position: absolute;
-  font-size: 0.55rem;
+  font-size: clamp(6px, 1.5vw, 10px);
   color: var(--gold);
-  padding: 3px 8px;
-  background: rgba(0, 0, 0, 0.5);
-  border-radius: 4px;
+  padding: 2px 6px;
+  background: rgba(0, 0, 0, 0.6);
+  border-radius: 3px;
 }
 
-.opponent-bet {
-  bottom: 5px;
-}
+.opponent-bet { bottom: 0; }
+.player-bet { top: 0; }
+.opponent-bet:empty, .player-bet:empty { display: none; }
 
-.player-bet {
-  top: 5px;
-}
-
-.opponent-bet:empty, .player-bet:empty {
-  display: none;
-}
-
-/* Table Center */
+/* Table Center - 10% of screen */
 .table-center {
+  height: 10%;
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 8px;
   position: relative;
-  flex-shrink: 0;
 }
 
 .game-message {
-  font-size: 0.55rem;
+  font-size: clamp(6px, 1.8vw, 12px);
   color: var(--gold);
   text-align: center;
-  padding: 8px 12px;
+  padding: 1vh 3vw;
   background: rgba(0, 0, 0, 0.5);
   border-radius: 4px;
-  max-width: 90%;
+  max-width: 85%;
 }
 
 .dealer-button {
   position: absolute;
-  right: 20px;
-  width: 24px;
-  height: 24px;
+  right: 5vw;
+  width: clamp(18px, 4vw, 28px);
+  height: clamp(18px, 4vw, 28px);
   background: var(--gold);
   color: #000;
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 0.5rem;
+  font-size: clamp(6px, 1.5vw, 10px);
   font-weight: bold;
 }
 
-.dealer-button.opponent {
-  top: -30px;
+.dealer-button.opponent { top: -2vh; }
+.dealer-button.player { bottom: -2vh; }
+
+/* Footer - 8% of screen */
+.game-footer {
+  height: 8%;
+  min-height: 35px;
+  display: flex;
+  align-items: center;
+  padding: 0 2vw;
+  background: rgba(0, 0, 0, 0.3);
+  border-radius: 4px;
 }
 
-.dealer-button.player {
-  bottom: -30px;
-}
-
-/* Cards */
-.card {
-  width: 48px;
-  height: 68px;
-  background: var(--card-white);
+/* Action Panel - 28% of screen */
+.action-panel {
+  height: 28%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1vh 2vw;
+  background: rgba(0, 0, 0, 0.4);
   border-radius: 6px;
-  box-shadow: 1px 1px 4px var(--card-shadow);
+}
+
+.bet-actions {
+  display: flex;
+  gap: 2vw;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.draw-actions {
+  text-align: center;
+}
+
+.draw-instruction {
+  font-size: clamp(6px, 1.5vw, 10px);
+  margin-bottom: 1.5vh;
+  color: var(--cream);
+}
+
+/* Cards - Scale with viewport */
+.card {
+  width: clamp(36px, 12vw, 70px);
+  height: clamp(50px, 17vw, 100px);
+  background: #fff;
+  border-radius: clamp(4px, 1vw, 8px);
+  box-shadow: 1px 1px 3px rgba(0,0,0,0.4);
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  position: relative;
   cursor: pointer;
-  transition: transform 0.2s, box-shadow 0.2s;
+  transition: transform 0.15s;
   user-select: none;
-  flex-shrink: 0;
+  position: relative;
 }
 
 .card.face-down {
-  background: linear-gradient(135deg, #1a1a8a 25%, #2a2a9a 25%, #2a2a9a 50%, #1a1a8a 50%, #1a1a8a 75%, #2a2a9a 75%);
-  background-size: 8px 8px;
+  background: repeating-linear-gradient(
+    45deg,
+    #1a1a8a,
+    #1a1a8a 4px,
+    #2a2a9a 4px,
+    #2a2a9a 8px
+  );
   border: 2px solid var(--gold);
 }
 
 .card.selected {
-  transform: translateY(-15px);
-  box-shadow: 0 6px 12px var(--card-shadow), 0 0 8px var(--gold);
+  transform: translateY(-12px);
+  box-shadow: 0 4px 8px rgba(0,0,0,0.5), 0 0 6px var(--gold);
 }
 
 .card .rank {
-  font-size: 0.9rem;
+  font-size: clamp(10px, 3.5vw, 20px);
   font-weight: bold;
 }
 
 .card .suit {
-  font-size: 1.1rem;
+  font-size: clamp(12px, 4vw, 24px);
 }
 
-.card.hearts, .card.diamonds {
-  color: var(--red);
-}
-
-.card.clubs, .card.spades {
-  color: #000;
-}
+.card.hearts, .card.diamonds { color: var(--red); }
+.card.clubs, .card.spades { color: #000; }
 
 .card.wild {
-  background: linear-gradient(135deg, #ffd700 0%, #ffec8b 50%, #ffd700 100%);
+  background: linear-gradient(135deg, #ffd700, #ffec8b, #ffd700);
 }
 
 .card.wild .rank, .card.wild .suit {
@@ -266,69 +295,34 @@ body {
 }
 
 .card.joker {
-  background: linear-gradient(135deg, #ff6b6b 0%, #ffd700 50%, #6bff6b 100%);
+  background: linear-gradient(135deg, #ff6b6b, #ffd700, #6bff6b);
 }
 
 .card.joker .rank {
-  font-size: 0.45rem;
+  font-size: clamp(5px, 1.5vw, 9px);
 }
 
 .card .corner {
   position: absolute;
-  font-size: 0.4rem;
+  font-size: clamp(5px, 1.2vw, 8px);
   line-height: 1;
 }
 
-.card .corner.top-left {
-  top: 3px;
-  left: 3px;
-}
-
-.card .corner.bottom-right {
-  bottom: 3px;
-  right: 3px;
-  transform: rotate(180deg);
-}
-
-/* Game Footer */
-.game-footer {
-  padding: 6px 10px;
-  background: rgba(0, 0, 0, 0.3);
-  border-radius: 6px;
-  flex-shrink: 0;
-}
-
-/* Action Panel */
-.action-panel {
-  padding: 10px;
-  background: rgba(0, 0, 0, 0.5);
-  border-radius: 8px;
-  flex-shrink: 0;
-}
-
-.bet-actions {
-  display: flex;
-  gap: 8px;
-  align-items: center;
-  justify-content: center;
-  flex-wrap: wrap;
-}
+.card .corner.top-left { top: 2px; left: 2px; }
+.card .corner.bottom-right { bottom: 2px; right: 2px; transform: rotate(180deg); }
 
 /* Buttons */
 .btn {
   font-family: 'Press Start 2P', cursive;
-  font-size: 0.55rem;
-  padding: 10px 16px;
+  font-size: clamp(7px, 2vw, 12px);
+  padding: clamp(8px, 2vh, 14px) clamp(12px, 3vw, 24px);
   border: none;
   border-radius: 6px;
   cursor: pointer;
-  transition: all 0.2s;
+  transition: transform 0.1s;
   text-transform: uppercase;
   touch-action: manipulation;
-}
-
-.btn:hover {
-  transform: scale(1.05);
+  -webkit-tap-highlight-color: transparent;
 }
 
 .btn:active {
@@ -337,20 +331,16 @@ body {
 
 .btn:disabled {
   opacity: 0.5;
-  cursor: not-allowed;
-  transform: none;
 }
 
-.btn-primary {
+.btn-primary, .btn-deal {
   background: var(--gold);
   color: #000;
 }
 
 .btn-deal {
-  background: var(--gold);
-  color: #000;
-  font-size: 0.8rem;
-  padding: 14px 32px;
+  font-size: clamp(10px, 3vw, 16px);
+  padding: clamp(12px, 3vh, 20px) clamp(24px, 8vw, 50px);
 }
 
 .btn-fold {
@@ -371,33 +361,23 @@ body {
 .raise-controls {
   display: flex;
   align-items: center;
-  gap: 6px;
+  gap: 1.5vw;
 }
 
 .raise-controls input[type="range"] {
-  width: 70px;
+  width: clamp(50px, 15vw, 100px);
   cursor: pointer;
 }
 
 #raiseAmount {
-  min-width: 40px;
-  text-align: center;
-  font-size: 0.55rem;
+  font-size: clamp(7px, 1.8vw, 11px);
   color: var(--gold);
+  min-width: 35px;
+  text-align: center;
 }
 
 #raiseAmount::before {
   content: '$';
-}
-
-.draw-actions {
-  text-align: center;
-}
-
-.draw-instruction {
-  font-size: 0.5rem;
-  margin-bottom: 10px;
-  color: var(--cream);
 }
 
 /* Overlays */
@@ -415,25 +395,25 @@ body {
 }
 
 .overlay-content {
-  background: linear-gradient(135deg, #1a3a1a 0%, #0d5c1d 100%);
-  padding: 24px;
-  border-radius: 12px;
+  background: linear-gradient(135deg, #1a3a1a, #0d5c1d);
+  padding: clamp(16px, 4vh, 32px) clamp(20px, 5vw, 40px);
+  border-radius: 10px;
   border: 3px solid var(--gold);
   text-align: center;
   max-width: 90%;
-  width: 320px;
+  width: 300px;
 }
 
 .overlay-content h2 {
-  font-size: 1.1rem;
+  font-size: clamp(12px, 4vw, 22px);
   color: var(--gold);
-  margin-bottom: 16px;
+  margin-bottom: 2vh;
 }
 
 .overlay-content p {
-  font-size: 0.55rem;
-  margin: 8px 0;
-  line-height: 1.8;
+  font-size: clamp(7px, 2vw, 11px);
+  margin: 1vh 0;
+  line-height: 1.6;
 }
 
 .overlay-content strong {
@@ -441,142 +421,27 @@ body {
 }
 
 .overlay-content .btn {
-  margin-top: 16px;
+  margin-top: 2vh;
 }
 
-/* Responsive - Larger phones */
-@media (min-height: 700px) {
-  .card {
-    width: 56px;
-    height: 80px;
-  }
-
-  .card .rank {
-    font-size: 1rem;
-  }
-
-  .card .suit {
-    font-size: 1.3rem;
-  }
-
-  .game-message {
-    font-size: 0.6rem;
-  }
-
-  .btn {
-    font-size: 0.6rem;
-    padding: 12px 18px;
-  }
-
-  .btn-deal {
-    font-size: 0.9rem;
-    padding: 16px 36px;
-  }
-}
-
-/* Responsive - Tablets and larger */
-@media (min-height: 900px) {
-  #game {
-    padding: 12px;
-    gap: 8px;
-  }
-
+/* Desktop enhancements */
+@media (min-width: 768px) and (min-height: 600px) {
   .card {
     width: 70px;
     height: 100px;
-  }
-
-  .card .rank {
-    font-size: 1.2rem;
-  }
-
-  .card .suit {
-    font-size: 1.5rem;
   }
 
   .opponent-hand, .player-hand {
     gap: 10px;
   }
 
-  .player-name {
-    font-size: 0.6rem;
-  }
-
-  .player-chips {
-    font-size: 0.8rem;
-  }
-
-  .game-message {
-    font-size: 0.7rem;
-    padding: 10px 16px;
-  }
-
   .btn {
-    font-size: 0.7rem;
-    padding: 12px 24px;
+    font-size: 12px;
+    padding: 14px 28px;
   }
 
   .btn-deal {
-    font-size: 1rem;
-    padding: 18px 44px;
+    font-size: 16px;
+    padding: 18px 50px;
   }
-}
-
-/* Landscape orientation on mobile */
-@media (max-height: 500px) {
-  #game {
-    padding: 4px;
-    gap: 2px;
-  }
-
-  .game-header, .game-footer {
-    padding: 4px 8px;
-  }
-
-  .card {
-    width: 40px;
-    height: 56px;
-  }
-
-  .card .rank {
-    font-size: 0.75rem;
-  }
-
-  .card .suit {
-    font-size: 0.9rem;
-  }
-
-  .table-center {
-    padding: 4px;
-  }
-
-  .action-panel {
-    padding: 6px;
-  }
-
-  .btn {
-    font-size: 0.5rem;
-    padding: 8px 12px;
-  }
-
-  .btn-deal {
-    font-size: 0.7rem;
-    padding: 10px 24px;
-  }
-}
-
-/* Animations */
-@keyframes dealCard {
-  from {
-    transform: translateY(-100px) rotate(180deg);
-    opacity: 0;
-  }
-  to {
-    transform: translateY(0) rotate(0);
-    opacity: 1;
-  }
-}
-
-.card.dealing {
-  animation: dealCard 0.3s ease-out forwards;
 }
