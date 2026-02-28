@@ -46,11 +46,14 @@ body {
   position: absolute;
   top: 0;
   left: 0;
+  z-index: 1;
+  background: linear-gradient(135deg, var(--dark-bg) 0%, var(--dark-purple) 50%, #0d0d2b 100%);
 }
 
 .screen.active {
   display: flex;
   flex-direction: column;
+  z-index: 10;
 }
 
 .hidden {

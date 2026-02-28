@@ -205,17 +205,10 @@ const ModeManager = {
   startSoloMode() {
     this.currentMode = 'solo';
     this.showGameScreen();
-    this.loadSoloGame();
-  },
-
-  loadSoloGame() {
-    // Dynamically load solo-game.js
-    const script = document.createElement('script');
-    script.src = 'js/solo-game.js';
-    script.onload = () => {
-      console.log('Solo game loaded');
-    };
-    document.body.appendChild(script);
+    // Initialize solo game (script already loaded)
+    if (window.SoloGame) {
+      window.SoloGame.init();
+    }
   },
 
   // ============ MULTIPLAYER ============

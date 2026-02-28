@@ -623,10 +623,7 @@ function restartGame() {
     ui.potAmount.textContent = '0';
   }
 
-  // Initialize on load
-  init();
-
-  // Export public methods
+  // Export public methods (don't auto-init, wait for ModeManager)
   return {
     init,
     cleanup
