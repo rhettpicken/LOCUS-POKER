@@ -186,9 +186,10 @@ const ModeManager = {
   confirmName() {
     const name = this.ui.playerNameInput.value.trim() || 'Player';
     this.playerName = name.substring(0, 12);
+    const mode = this.pendingMode; // Save before hiding clears it
     this.hideNameModal();
 
-    switch (this.pendingMode) {
+    switch (mode) {
       case 'quick':
         this.startQuickMatch();
         break;
@@ -401,7 +402,7 @@ const ModeManager = {
     // Dynamically load multiplayer game script
     if (!window.MultiplayerGame) {
       const script = document.createElement('script');
-      script.src = 'js/multiplayer-game.js';
+      script.src = 'js/multiplayer-game.js?v=2';
       script.onload = () => {
         window.MultiplayerGame.init(this.socket, this.playerName, gameData);
       };

@@ -307,7 +307,7 @@ const MultiplayerGame = {
     this.playerChips = data.playerChips[this.playerIndex];
     this.opponentChips = data.playerChips[1 - this.playerIndex];
 
-    this.showResult(title, color, myHand.description, oppHand.description, data.pot);
+    this.showResult(title, color, myHand.description.name, oppHand.description.name, data.pot);
     this.updateUI();
   },
 
