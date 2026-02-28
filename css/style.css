@@ -604,14 +604,16 @@ body {
 
 .join-room-row {
   display: flex;
-  gap: 1vw;
+  gap: 2vw;
+  width: 100%;
 }
 
 .room-code-input {
   flex: 1;
+  min-width: 0;
   font-family: 'Press Start 2P', cursive;
-  font-size: clamp(10px, 2.5vw, 14px);
-  padding: clamp(10px, 2vh, 14px);
+  font-size: clamp(12px, 3vw, 16px);
+  padding: clamp(14px, 3vh, 20px) clamp(10px, 2vw, 16px);
   background: rgba(176, 38, 255, 0.2);
   border: 2px solid var(--neon-purple);
   border-radius: 6px;
@@ -641,9 +643,10 @@ body {
 }
 
 .btn-join {
-  flex-shrink: 0;
-  padding-left: clamp(16px, 3vw, 24px);
-  padding-right: clamp(16px, 3vw, 24px);
+  flex: 1;
+  min-width: 0;
+  padding: clamp(14px, 3vh, 20px) clamp(10px, 2vw, 16px);
+  font-size: clamp(12px, 3vw, 16px);
 }
 
 /* Server Status */
