@@ -11,8 +11,8 @@ const wss = new WebSocketServer({ server });
 
 const PORT = process.env.PORT || 3000;
 
-// Serve static files
-app.use(express.static(path.join(__dirname, 'public')));
+// Serve static files from root directory (for GitHub Pages compatibility)
+app.use(express.static(__dirname));
 
 // Store active rooms
 const rooms = new Map();
@@ -82,6 +82,80 @@ wss.on('connection', (ws) => {
           } else {
             ws.send(JSON.stringify({
               event: 'error',
+              message: result.error
+            }));
+          }
+          break;
+        }
+
+        case 'room:create': {
+          playerName = message.name || `Player${Math.floor(Math.random() * 1000)}`;
+
+          // Generate unique room code
+          let code;
+          do {
+            code = generateRoomCode();
+          } while (rooms.has(code));
+
+          const room = new Room(code);
+          room.isPrivate = true;
+          rooms.set(code, room);
+
+          const result = room.addPlayer(ws, playerName);
+
+          if (result.success) {
+            currentRoom = room;
+            playerIndex = result.playerIndex;
+
+            ws.send(JSON.stringify({
+              event: 'room:created',
+              code: code
+            }));
+          } else {
+            ws.send(JSON.stringify({
+              event: 'room:error',
+              message: result.error
+            }));
+          }
+          break;
+        }
+
+        case 'room:join': {
+          playerName = message.name || `Player${Math.floor(Math.random() * 1000)}`;
+          const code = message.code;
+
+          const room = rooms.get(code);
+
+          if (!room) {
+            ws.send(JSON.stringify({
+              event: 'room:error',
+              message: 'Room not found'
+            }));
+            break;
+          }
+
+          if (room.players.length >= 2) {
+            ws.send(JSON.stringify({
+              event: 'room:error',
+              message: 'Room is full'
+            }));
+            break;
+          }
+
+          const result = room.addPlayer(ws, playerName);
+
+          if (result.success) {
+            currentRoom = room;
+            playerIndex = result.playerIndex;
+
+            ws.send(JSON.stringify({
+              event: 'room:joined',
+              code: code
+            }));
+            // Room.addPlayer will trigger startCountdown when 2 players
+          } else {
+            ws.send(JSON.stringify({
+              event: 'room:error',
               message: result.error
             }));
           }

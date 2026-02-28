@@ -9,8 +9,66 @@
 </head>
 <body>
   <div id="app">
-    <!-- Game Screen - Now the only screen -->
-    <div id="game" class="screen active">
+    <!-- Menu Screen -->
+    <div id="menu" class="screen active">
+      <div class="menu-container">
+        <h1 class="menu-title">LOCUS POKER</h1>
+        <p class="menu-subtitle">WILD DRAW POKER</p>
+
+        <div class="menu-buttons">
+          <button class="btn btn-menu btn-solo" id="soloModeBtn">SOLO MODE</button>
+
+          <div class="menu-divider">
+            <span>MULTIPLAYER</span>
+          </div>
+
+          <button class="btn btn-menu btn-quick" id="quickMatchBtn" disabled>
+            QUICK MATCH
+            <span class="btn-status" id="quickMatchStatus"></span>
+          </button>
+
+          <div class="private-room-section">
+            <button class="btn btn-menu btn-private" id="createRoomBtn" disabled>
+              CREATE ROOM
+            </button>
+            <div class="join-room-row">
+              <input type="text" id="roomCodeInput" class="room-code-input"
+                     placeholder="CODE" maxlength="4" disabled>
+              <button class="btn btn-menu btn-join" id="joinRoomBtn" disabled>JOIN</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="server-status" id="serverStatus">
+          <span class="status-dot offline"></span>
+          <span class="status-text">Checking server...</span>
+        </div>
+
+        <!-- Room code display (shown after creating room) -->
+        <div class="room-code-display hidden" id="roomCodeDisplay">
+          <p>YOUR ROOM CODE:</p>
+          <div class="room-code" id="displayedRoomCode">----</div>
+          <p class="waiting-text">Waiting for opponent...</p>
+          <button class="btn btn-cancel" id="cancelRoomBtn">CANCEL</button>
+        </div>
+
+        <!-- Name input modal -->
+        <div class="name-modal hidden" id="nameModal">
+          <div class="modal-content">
+            <h3>ENTER YOUR NAME</h3>
+            <input type="text" id="playerNameInput" class="name-input"
+                   placeholder="PLAYER" maxlength="12">
+            <div class="modal-buttons">
+              <button class="btn btn-cancel" id="cancelNameBtn">CANCEL</button>
+              <button class="btn btn-primary" id="confirmNameBtn">PLAY</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Game Screen -->
+    <div id="game" class="screen">
       <div class="game-header">
         <div class="player-info opponent-info">
           <span class="player-name">COMPUTER</span>
@@ -45,6 +103,7 @@
           <span class="player-name">YOU</span>
           <span class="player-chips" id="playerChips">1000</span>
         </div>
+        <button class="btn btn-back" id="backToMenuBtn">MENU</button>
       </div>
 
       <div class="action-panel" id="actionPanel">
@@ -87,6 +146,6 @@
   </div>
 
   <script src="js/cards.js"></script>
-  <script src="js/solo-game.js"></script>
+  <script src="js/mode-manager.js"></script>
 </body>
 </html>

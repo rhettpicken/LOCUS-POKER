@@ -1,33 +1,35 @@
 // Solo Poker Game - Player vs Computer
+// Wrapped in SoloGame object for integration with ModeManager
 
-// ============ DECK ============
-const SUITS = ['hearts', 'diamonds', 'clubs', 'spades'];
-const RANKS = ['2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K', 'A'];
+const SoloGame = (function() {
+  // ============ DECK ============
+  const SUITS = ['hearts', 'diamonds', 'clubs', 'spades'];
+  const RANKS = ['2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K', 'A'];
 
-function createDeck() {
-  const deck = [];
-  // Double deck
-  for (let d = 0; d < 2; d++) {
-    for (const suit of SUITS) {
-      for (const rank of RANKS) {
-        deck.push({ rank, suit, isWild: rank === '2', id: `${rank}_${suit}_${d}` });
+  function createDeck() {
+    const deck = [];
+    // Double deck
+    for (let d = 0; d < 2; d++) {
+      for (const suit of SUITS) {
+        for (const rank of RANKS) {
+          deck.push({ rank, suit, isWild: rank === '2', id: `${rank}_${suit}_${d}` });
+        }
       }
     }
+    // 4 Jokers
+    for (let i = 0; i < 4; i++) {
+      deck.push({ rank: 'JOKER', suit: i < 2 ? 'red' : 'black', isWild: true, id: `JOKER_${i}` });
+    }
+    return deck;
   }
-  // 4 Jokers
-  for (let i = 0; i < 4; i++) {
-    deck.push({ rank: 'JOKER', suit: i < 2 ? 'red' : 'black', isWild: true, id: `JOKER_${i}` });
-  }
-  return deck;
-}
 
-function shuffle(deck) {
-  for (let i = deck.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1));
-    [deck[i], deck[j]] = [deck[j], deck[i]];
+  function shuffle(deck) {
+    for (let i = deck.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [deck[i], deck[j]] = [deck[j], deck[i]];
+    }
+    return deck;
   }
-  return deck;
-}
 
 // ============ HAND EVALUATION ============
 const RANK_VALUES = { '3': 3, '4': 4, '5': 5, '6': 6, '7': 7, '8': 8, '9': 9, '10': 10, 'J': 11, 'Q': 12, 'K': 13, 'A': 14 };
@@ -586,16 +588,50 @@ function restartGame() {
   ui.opponentHand.innerHTML = '';
 }
 
-// ============ EVENT LISTENERS ============
-ui.dealBtn.onclick = dealNewHand;
-ui.foldBtn.onclick = playerFold;
-ui.callBtn.onclick = playerCall;
-ui.raiseBtn.onclick = playerRaise;
-ui.raiseSlider.oninput = () => ui.raiseAmount.textContent = ui.raiseSlider.value;
-ui.confirmDraw.onclick = playerDraw;
-ui.continueBtn.onclick = continueGame;
-ui.restartBtn.onclick = restartGame;
+  // ============ EVENT LISTENERS ============
+  function bindEvents() {
+    ui.dealBtn.onclick = dealNewHand;
+    ui.foldBtn.onclick = playerFold;
+    ui.callBtn.onclick = playerCall;
+    ui.raiseBtn.onclick = playerRaise;
+    ui.raiseSlider.oninput = () => ui.raiseAmount.textContent = ui.raiseSlider.value;
+    ui.confirmDraw.onclick = playerDraw;
+    ui.continueBtn.onclick = continueGame;
+    ui.restartBtn.onclick = restartGame;
+  }
 
-// ============ INIT ============
-updateUI();
-console.log('Wild Draw Poker loaded - Click DEAL to start!');
+  // ============ PUBLIC API ============
+  function init() {
+    bindEvents();
+    updateUI();
+    console.log('Solo mode loaded - Click DEAL to start!');
+  }
+
+  function cleanup() {
+    stopTimer();
+    // Reset game state
+    game.playerChips = 1000;
+    game.computerChips = 1000;
+    game.dealerIsPlayer = true;
+    game.phase = 'idle';
+    ui.gameOverOverlay.classList.add('hidden');
+    ui.resultOverlay.classList.add('hidden');
+    ui.playerHand.innerHTML = '';
+    ui.opponentHand.innerHTML = '';
+    ui.playerBet.textContent = '';
+    ui.opponentBet.textContent = '';
+    ui.potAmount.textContent = '0';
+  }
+
+  // Initialize on load
+  init();
+
+  // Export public methods
+  return {
+    init,
+    cleanup
+  };
+})();
+
+// Make available globally for ModeManager
+window.SoloGame = SoloGame;
